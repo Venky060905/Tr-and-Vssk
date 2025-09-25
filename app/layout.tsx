@@ -1,37 +1,22 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { Poppins, Inter } from "next/font/google"
-import "./globals.css"
+// app/layout.tsx
+import "@/styles/globals.css"; // Import your global CSS
 
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins",
-  display: "swap",
-})
+export const metadata = {
+  title: "TR VSSK",
+  description: "Welcome to TR VSSK website",
+};
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  variable: "--font-inter",
-  display: "swap",
-})
-
-export const metadata: Metadata = {
-  title: "TR and VSSK Consultant Services - Chartered Accountants",
-  description:
-    "Professional accounting, tax, and business consulting services. Your trusted partner in financial compliance and advisory.",
-  generator: "v0.app",
-}
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} ${inter.variable} font-sans antialiased`}>{children}</body>
+      <head>
+        {/* Google Site Verification */}
+        <meta
+          name="google-site-verification"
+          content="gDTDZWwxPibHVCQJFzUQZJMepD71iCHKrGzI3QHvd6Y"
+        />
+      </head>
+      <body>{children}</body>
     </html>
-  )
+  );
 }
