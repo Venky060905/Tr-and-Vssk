@@ -1,5 +1,6 @@
 // app/layout.tsx
 import "@/styles/globals.css"; // Import your global CSS
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata = {
   title: "TR VSSK",
