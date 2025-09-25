@@ -29,14 +29,29 @@ export function ContactSection() {
     e.preventDefault()
     setLoading(true)
 
+    // Debug: check if environment variables are loaded
+    console.log("Service ID:", process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID)
+    console.log("Template ID:", process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID)
+    console.log("Public Key:", process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY)
+
+    if (!process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 
+        !process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 
+        !process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
+      alert("EmailJS keys are missing! Check .env.local")
+      setLoading(false)
+      return
+    }
+
     try {
+      // Send email via EmailJS
       await emailjs.sendForm(
-        'service_se8urwo',
-        'template_pq3zcnh',
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         e.target as HTMLFormElement,
-        '9KDBbIM43g6wiyb7Q'
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       )
 
+      // Optional: send to backend API
       await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -102,7 +117,6 @@ export function ContactSection() {
                 </div>
               </div>
 
-              {/* Quick Call / WhatsApp */}
               <div className="flex space-x-4 mt-4">
                 <a href="tel:+918919509128" className="flex items-center justify-center px-5 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium shadow-md transition-all">
                   <Phone className="inline mr-2 h-5 w-5" /> Call
@@ -134,42 +148,10 @@ export function ContactSection() {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
-                <Input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="rounded-xl border border-gray-300 focus:border-blue-400 focus:ring focus:ring-blue-200 transition-all duration-300 py-3"
-                  required
-                />
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="Your Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="rounded-xl border border-gray-300 focus:border-blue-400 focus:ring focus:ring-blue-200 transition-all duration-300 py-3"
-                  required
-                />
-                <Input
-                  type="tel"
-                  name="phone"
-                  placeholder="Your Phone Number"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="rounded-xl border border-gray-300 focus:border-blue-400 focus:ring focus:ring-blue-200 transition-all duration-300 py-3"
-                  required
-                />
-
-                {/* Select Service Dropdown */}
-                <select
-                  name="service"
-                  value={formData.service}
-                  onChange={handleChange}
-                  className="rounded-xl border border-gray-300 focus:border-blue-400 focus:ring focus:ring-blue-200 transition-all duration-300 py-3 w-full"
-                  required
-                >
+                <Input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required />
+                <Input type="email" name="email" placeholder="Your Email" value={formData.email} onChange={handleChange} required />
+                <Input type="tel" name="phone" placeholder="Your Phone Number" value={formData.phone} onChange={handleChange} required />
+                <select name="service" value={formData.service} onChange={handleChange} required>
                   <option value="">Select Service</option>
                   <option value="accounting">Accounting</option>
                   <option value="tax">Tax Consulting</option>
@@ -177,26 +159,9 @@ export function ContactSection() {
                   <option value="advisory">Business Advisory</option>
                   <option value="signature">Digital Signatures(DSC)</option>
                   <option value="others">Others</option>
-                
                 </select>
-
-                {/* Message Box */}
-                <Textarea
-                  name="message"
-                  placeholder="Your Message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={8} // taller message box
-                  className="rounded-xl border border-gray-300 focus:border-blue-400 focus:ring focus:ring-blue-200 transition-all duration-300 resize-none h-48"
-                  required
-                />
-
-                <Button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-indigo-500 hover:to-blue-500 text-white font-semibold py-3 rounded-xl shadow-lg transition-all duration-300"
-                >
-                  {loading ? 'Sending...' : 'Send Message'}
-                </Button>
+                <Textarea name="message" placeholder="Your Message" value={formData.message} onChange={handleChange} rows={8} required />
+                <Button type="submit">{loading ? 'Sending...' : 'Send Message'}</Button>
               </form>
             </CardContent>
           </Card>

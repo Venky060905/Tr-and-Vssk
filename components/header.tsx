@@ -23,7 +23,9 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo / Brand */}
           <div className="flex-shrink-0">
-            <h1 className="text-xl font-bold text-primary">TR & VSSK Consultant Services</h1>
+            <a href="/" className="text-xl font-bold text-primary hover:underline">
+              TR & VSSK Consultant Services
+            </a>
           </div>
 
           {/* Desktop Navigation */}
