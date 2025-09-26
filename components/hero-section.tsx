@@ -85,7 +85,7 @@ export function HeroSection() {
           >
             <Button
               size="lg"
-              className="gradient-button text-lg px-8 py-6 text-white border-0 font-semibold rounded-xl shadow-lg hover:scale-105 transition-transform "
+              className="bg-blue-600 hover:bg-blue-700 text-white text-lg px-8 py-6 border-0 font-semibold rounded-xl shadow-lg hover:scale-105 transition-transform"
               onClick={() => scrollToSection("contact")}
             >
               Book a Consultation

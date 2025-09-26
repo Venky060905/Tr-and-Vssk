@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
 import { Menu, X } from "lucide-react"
 
 export function Header() {
@@ -22,9 +23,10 @@ export function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo / Brand */}
-          <div className="flex-shrink-0">
-            <a href="/" className="text-xl font-bold text-primary hover:underline">
-              TR & VSSK Consultant Services
+          <div className="flex-shrink-0 flex items-center gap-2">
+            <a href="/" className="flex items-center gap-2">
+              <Image src="/images/remove-preview.png" alt="TR & VSSK Consultant Services Logo" width={32} height={32} className="h-8 w-8 object-contain" priority />
+              <span className="text-xl font-bold text-primary hover:underline">TR & VSSK Consultant Services</span>
             </a>
           </div>
 

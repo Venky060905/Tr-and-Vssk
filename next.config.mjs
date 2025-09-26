@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
@@ -8,6 +9,20 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+  },
+  async redirects() {
+    return [
+      {
+        source: '/contact',
+        destination: '/#contact',
+        permanent: false,
+      },
+      {
+        source: '/services',
+        destination: '/#services',
+        permanent: false,
+      },
+    ]
   },
 }
 
