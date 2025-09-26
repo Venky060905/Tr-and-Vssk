@@ -1,10 +1,16 @@
 // app/layout.tsx
-import "@/styles/globals.css"; // Import your global CSS
+import "@/styles/globals.css"; 
 import { Analytics } from "@vercel/analytics/next"
+import type { Metadata } from "next"
 
-export const metadata = {
-  title: "TR VSSK-Consultant Services | Hyderabad",
+export const metadata: Metadata = {
+  title: "TR VSSK - Consultant Services | Hyderabad",
   description: "Welcome to TR VSSK website",
+  icons: {
+    icon: "/favicon.ico", // Place favicon.ico in public/
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -17,7 +23,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           content="gDTDZWwxPibHVCQJFzUQZJMepD71iCHKrGzI3QHvd6Y"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
