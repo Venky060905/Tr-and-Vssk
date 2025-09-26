@@ -36,7 +36,13 @@ export const GET = async () => {
           (item) => `
         <url>
           <loc>${item.url}</loc>
-          <lastmod>${item.lastModified.toISOString()}</lastmod>
+          <lastmod>${
+            item.lastModified
+              ? item.lastModified instanceof Date
+                ? item.lastModified.toISOString()
+                : new Date(item.lastModified).toISOString()
+              : new Date().toISOString()
+          }</lastmod>
           <changefreq>${item.changeFrequency}</changefreq>
           <priority>${item.priority}</priority>
         </url>`
